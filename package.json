@@ -6,7 +6,8 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "nx": "15.7.2",
+    "@nrwl/nx-cloud": "latest",
+    "nx": "15.8.1",
     "prettier": "^2.6.2"
   },
   "workspaces": [
