@@ -1,14 +1,14 @@
-# Hapify Pure
+# Hapify Schema
 
-Hapify Pure is a TypeScript library that provides a unified data modeling approach for backend and frontend constraints.
+Hapify Schema is a TypeScript library that provides a unified data modeling approach for backend and frontend constraints.
 It aims to simplify the data modeling process by providing a set of common use cases that cover most scenarios.
 
 ## Concept
 
-Hapify Pure uses an agnostic and behavior-oriented approach to data modeling, 
+Hapify Schema uses an agnostic and behavior-oriented approach to data modeling, 
 allowing you to define data models that meet the specific requirements of your project. 
 
-With Hapify Pure, you specify what the model should do rather than how it should do it, 
+With Hapify Schema, you specify what the model should do rather than how it should do it, 
 providing maximum flexibility and adaptability to different use cases.
 
 ## Features
@@ -20,15 +20,15 @@ providing maximum flexibility and adaptability to different use cases.
 
 ## Installation
 
-You can install Hapify Pure using npm:
+You can install Hapify Schema using npm:
 
 ```bash
-npm install @hapify-pure
+npm install @hapify-schema
 ```
 
 ## Usage
 
-To use Hapify Pure, you first need to create a data model using the provided classes. Here's an example:
+To use Hapify Schema, you first need to create a data model using the provided classes. Here's an example:
 
 ```typescript
 // Coming soon...
@@ -46,7 +46,7 @@ So, we decided to create a new library that focused solely on the unified data m
 
 ## Contributing
 
-We welcome contributions from the community! To contribute to Hapify Pure, please follow these steps:
+We welcome contributions from the community! To contribute to Hapify Schema, please follow these steps:
 
 - Fork the repository
 - Create a new branch for your changes
@@ -56,4 +56,4 @@ We welcome contributions from the community! To contribute to Hapify Pure, pleas
 
 ## License
 
-Hapify Pure is released under the MIT License.
+Hapify Schema is released under the MIT License.
