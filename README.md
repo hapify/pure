@@ -23,7 +23,7 @@ providing maximum flexibility and adaptability to different use cases.
 You can install Hapify Schema using npm:
 
 ```bash
-npm install @hapify-schema
+npm install @hapify/schema
 ```
 
 ## Usage
