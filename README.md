@@ -5,10 +5,10 @@ It aims to simplify the data modeling process by providing a set of common use c
 
 ## Concept
 
-Hapify Schema uses an agnostic and behavior-oriented approach to data modeling, 
-allowing you to define data models that meet the specific requirements of your project. 
+Hapify Schema uses an agnostic and behavior-oriented approach to data modeling,
+allowing you to define data models that meet the specific requirements of your project.
 
-With Hapify Schema, you specify what the model should do rather than how it should do it, 
+With Hapify Schema, you specify what the model should do rather than how it should do it,
 providing maximum flexibility and adaptability to different use cases.
 
 ## Features
