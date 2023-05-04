@@ -16,6 +16,19 @@ describe('BaseEntityField', () => {
       expect(field.model).toBeInstanceOf(Model);
     });
   });
+  describe('ownership', () => {
+    it('should return the ownership', () => {
+      const model = new Model('User');
+      const field = new EntityOneToOneField('test', model);
+      expect(field.ownership).toBe(false);
+    });
+    it('should set the ownership', () => {
+      const model = new Model('User');
+      const field = new EntityOneToOneField('test', model);
+      field.setOwnership(true);
+      expect(field.ownership).toBe(true);
+    });
+  });
 });
 
 describe('EntityOneToOneField', () => {

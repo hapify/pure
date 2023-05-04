@@ -12,18 +12,19 @@ import {
   isManyToOne,
   isOneToMany,
   isOneToOne,
+  isOwnership,
 } from './entity';
 
 describe('isManyToMany', () => {
   it('should return true', () => {
     expect(
-      isManyToMany(new EntityManyToManyField('test', new Model('User'))),
+      isManyToMany(new EntityManyToManyField('test', new Model('User')))
     ).toBe(true);
   });
 
   it('should return false', () => {
     expect(
-      isManyToMany(new EntityManyToOneField('test', new Model('User'))),
+      isManyToMany(new EntityManyToOneField('test', new Model('User')))
     ).toBe(false);
   });
 });
@@ -31,13 +32,13 @@ describe('isManyToMany', () => {
 describe('isManyToOne', () => {
   it('should return true', () => {
     expect(
-      isManyToOne(new EntityManyToOneField('test', new Model('User'))),
+      isManyToOne(new EntityManyToOneField('test', new Model('User')))
     ).toBe(true);
   });
 
   it('should return false', () => {
     expect(
-      isManyToOne(new EntityManyToManyField('test', new Model('User'))),
+      isManyToOne(new EntityManyToManyField('test', new Model('User')))
     ).toBe(false);
   });
 });
@@ -45,13 +46,13 @@ describe('isManyToOne', () => {
 describe('isOneToMany', () => {
   it('should return true', () => {
     expect(
-      isOneToMany(new EntityOneToManyField('test', new Model('User'))),
+      isOneToMany(new EntityOneToManyField('test', new Model('User')))
     ).toBe(true);
   });
 
   it('should return false', () => {
     expect(
-      isOneToMany(new EntityManyToManyField('test', new Model('User'))),
+      isOneToMany(new EntityManyToManyField('test', new Model('User')))
     ).toBe(false);
   });
 });
@@ -59,12 +60,12 @@ describe('isOneToMany', () => {
 describe('isOneToOne', () => {
   it('should return true', () => {
     expect(isOneToOne(new EntityOneToOneField('test', new Model('User')))).toBe(
-      true,
+      true
     );
   });
   it('should return false', () => {
     expect(
-      isOneToOne(new EntityManyToManyField('test', new Model('User'))),
+      isOneToOne(new EntityManyToManyField('test', new Model('User')))
     ).toBe(false);
   });
 });
@@ -72,19 +73,34 @@ describe('isOneToOne', () => {
 describe('isEntity', () => {
   it('should return true', () => {
     expect(isEntity(new EntityManyToManyField('test', new Model('User')))).toBe(
-      true,
+      true
     );
     expect(isEntity(new EntityManyToOneField('test', new Model('User')))).toBe(
-      true,
+      true
     );
     expect(isEntity(new EntityOneToManyField('test', new Model('User')))).toBe(
-      true,
+      true
     );
     expect(isEntity(new EntityOneToOneField('test', new Model('User')))).toBe(
-      true,
+      true
     );
   });
   it('should return false', () => {
     expect(isEntity(new StringBasicField('test'))).toBe(false);
+  });
+});
+
+describe('isOwnership', () => {
+  it('should return true', () => {
+    expect(
+      isOwnership(
+        new EntityManyToOneField('test', new Model('User')).setOwnership(true)
+      )
+    ).toBe(true);
+  });
+  it('should return false', () => {
+    expect(
+      isOwnership(new EntityManyToManyField('test', new Model('User')))
+    ).toBe(false);
   });
 });

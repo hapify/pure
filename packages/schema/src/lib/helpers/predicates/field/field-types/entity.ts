@@ -6,6 +6,7 @@ import {
   EntityOneToOneField,
   Field,
 } from '../../../../nodes';
+import { OwnershipField } from '../../../interfaces';
 
 /**
  * Checks if a field is an entity many-to-many field
@@ -34,10 +35,18 @@ export function isOneToMany(field: Field): field is EntityOneToManyField {
 export function isOneToOne(field: Field): field is EntityOneToOneField {
   return field.type === 'entity' && field.subType === 'oneToOne';
 }
-
 /**
  * Test every entity field type
  */
 export function isEntity(field: Field): field is EntityField {
   return field.type === 'entity';
+}
+
+/**
+ * Checks if a field is an ownership field
+ */
+export function isOwnership<T extends EntityField>(
+  field: T
+): field is T & OwnershipField {
+  return field.ownership;
 }

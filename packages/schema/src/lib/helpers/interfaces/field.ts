@@ -27,9 +27,14 @@ export interface SearchableField {
 export interface SortableField {
   sortable: true;
 }
+
+export interface OwnershipField {
+  ownership: true;
+}
+
 export interface FieldActionScope<
   A extends FieldAction,
-  S extends Scope | undefined,
+  S extends Scope | undefined
 > {
   actionsScopes: { [key in A]: S };
 }
