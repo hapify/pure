@@ -173,22 +173,21 @@ describe('Model', () => {
     });
   });
 
-  describe('setOwner & owner', () => {
-    it('should set the owner of the model', () => {
+  describe('ownership', () => {
+    it('should return the owner of the model', () => {
       const model = new Model('Shop');
       const owner = new Model('User');
-      expect(model.setOwner(owner)).toBe(model); // Test chaining;
-      expect(model.owner).toEqual(owner);
+      model.addField(
+        new EntityOneToOneField('owner', owner).setOwnership(true)
+      );
+      expect(model.ownershipField).toBe(model.fields[0]);
     });
-  });
 
-  describe('removeOwner', () => {
-    it('should remove the owner of the model', () => {
+    it('should return undefined if no owner is set', () => {
       const model = new Model('Shop');
       const owner = new Model('User');
-      model.setOwner(owner);
-      expect(model.removeOwner()).toBe(model); // Test chaining;
-      expect(model.owner).toBeUndefined();
+      model.addField(new EntityOneToOneField('owner', owner));
+      expect(model.ownershipField).toBeUndefined();
     });
   });
 });

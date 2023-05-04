@@ -1,41 +1,44 @@
-import { Model } from '../../nodes';
-import { getOwners } from './model';
+import { getOwnershipChain } from './model';
+import { EntityOneToOneField, Model } from '../../nodes';
 
-describe('getOwners', () => {
-  it('should returns the list of owners', () => {
-    // Create a chain of owners
-    const model1 = new Model('Model1');
-    const model2 = new Model('Model2');
-    const model3 = new Model('Model3');
-    const model4 = new Model('Model4');
-
-    model1.setOwner(model2);
-    model2.setOwner(model3);
-    model4.setOwner(model3);
-
-    // Check the chain of owners
-    expect(getOwners(model1)).toEqual([model2, model3]);
-  });
-  it('should throw an error if the model is its own owner', () => {
-    const model = new Model('Model');
-    model.setOwner(model);
-    expect(() => getOwners(model)).toThrow();
-  });
-  it('should throw an error if the model is in the chain of owners', () => {
-    const model1 = new Model('Model1');
-    const model2 = new Model('Model2');
-    const model3 = new Model('Model3');
-    const model4 = new Model('Model4');
-
-    model1.setOwner(model2);
-    model2.setOwner(model3);
-    model3.setOwner(model4);
-    model4.setOwner(model1);
-
-    expect(() => getOwners(model1)).toThrow();
+describe('getOwnershipChain', () => {
+  it('should return the ownership chain', () => {
+    const model = new Model('User');
+    const owner = new Model('Owner');
+    const superOwner = new Model('SuperOwner');
+    model.addField(new EntityOneToOneField('owner', owner).setOwnership(true));
+    owner.addField(
+      new EntityOneToOneField('superOwner', superOwner).setOwnership(true)
+    );
+    expect(getOwnershipChain(model)).toEqual([
+      model.fields[0],
+      owner.fields[0],
+    ]);
   });
   it('should return an empty array if the model has no owner', () => {
-    const model = new Model('Model');
-    expect(getOwners(model)).toEqual([]);
+    const model = new Model('User');
+    const owner = new Model('Owner');
+    const superOwner = new Model('SuperOwner');
+    owner.addField(
+      new EntityOneToOneField('superOwner', superOwner).setOwnership(true)
+    );
+    expect(getOwnershipChain(model)).toEqual([]);
+  });
+  it('should stops in case of circular ownership', () => {
+    const model = new Model('User');
+    const owner = new Model('Owner');
+    const superOwner = new Model('SuperOwner');
+    model.addField(new EntityOneToOneField('owner', owner).setOwnership(true));
+    owner.addField(
+      new EntityOneToOneField('superOwner', superOwner).setOwnership(true)
+    );
+    superOwner.addField(
+      new EntityOneToOneField('user', model).setOwnership(true)
+    );
+    expect(getOwnershipChain(model)).toEqual([
+      model.fields[0],
+      owner.fields[0],
+      superOwner.fields[0],
+    ]);
   });
 });

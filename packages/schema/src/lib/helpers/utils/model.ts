@@ -1,24 +1,27 @@
-import { Model } from '../../nodes';
+import { EntityField, Model } from '../../nodes';
+import { OwnershipField } from '../../helpers';
 
 /**
- * Returns the chain of owners of the model.
- * Walks up the tree of owners until it reaches the root.
- * Stops when the owner is undefined.
- * Throws an error if the model is its own owner or in the chain of owners.
- * Returns an empty array if the model has no owner.
+ * Returns the chain of ownership.
+ * Get to the owner recursively until there is no owner.
+ * If it loops, it means there is a circular dependency. In this case, it stops and returns the chain.
+ * Returns an array of EntityField.
  */
-export function getOwners(model: Model): Model[] {
-  const owners: Model[] = [];
-  let { owner } = model;
-  while (owner) {
-    if (owner === model) {
-      throw new Error(`Model ${model.name} is its own owner`);
+export function getOwnershipChain(
+  model: Model
+): (EntityField & OwnershipField)[] {
+  const chain: (EntityField & OwnershipField)[] = [];
+  let ownershipField = model.ownershipField;
+
+  while (ownershipField) {
+    // Check for circular dependency
+    if (chain.some((item) => item === ownershipField)) {
+      return chain;
     }
-    if (owners.includes(owner)) {
-      throw new Error(`Model ${model.name} is in the chain of owners`);
-    }
-    owners.push(owner);
-    owner = owner.owner;
+    // Add the owner to the chain
+    chain.push(ownershipField);
+    // Get the next owner
+    ownershipField = ownershipField.model.ownershipField;
   }
-  return owners;
+  return chain;
 }

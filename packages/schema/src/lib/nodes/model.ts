@@ -1,6 +1,7 @@
 import { EntityField, Field } from './fields';
 import { ModelAction, ModelActionsScopes, Scope } from './interfaces';
 import { Node } from './node';
+import { isOwnership, OwnershipField } from '../helpers';
 
 /**
  * Local helper to filter entity fields.
@@ -35,12 +36,6 @@ export class Model extends Node {
     search: 'public',
     count: 'public',
   };
-
-  /**
-   * Model that own this one.
-   * This is used to determine the ownership.
-   */
-  protected _owner: Model | undefined;
 
   /**
    * Adds a field to the model
@@ -84,29 +79,6 @@ export class Model extends Node {
   }
 
   /**
-   * Set the model that owns this one.
-   */
-  setOwner(model: Model): this {
-    this._owner = model;
-    return this;
-  }
-
-  /**
-   * Removes the owner of the model
-   */
-  removeOwner(): this {
-    this._owner = undefined;
-    return this;
-  }
-
-  /**
-   * The model that owns this one.
-   */
-  get owner(): Model | undefined {
-    return this._owner;
-  }
-
-  /**
    * Returns a list of fields in the model
    */
   get fields(): Field[] {
@@ -143,6 +115,20 @@ export class Model extends Node {
    */
   get isSelfDependent(): boolean {
     return this.fields.filter(isEntity).some((field) => field.model === this);
+  }
+
+  /**
+   * Returns the field that carries the ownership relation
+   */
+  get ownershipField(): (EntityField & OwnershipField) | undefined {
+    return this.fields.filter(isEntity).find(isOwnership);
+  }
+
+  /**
+   * Denotes if the model has an ownership relation
+   */
+  get hasOwnership(): boolean {
+    return !!this.ownershipField;
   }
 
   /**

@@ -20,6 +20,10 @@ export interface ModelSelfReferenced {
   isSelfReferenced: true;
 }
 
+export interface ModelWithOwnership {
+  hasOwnership: true;
+}
+
 export interface ModelActionScope<A extends ModelAction, S extends Scope> {
   actionsScopes: { [key in A]: S };
 }
