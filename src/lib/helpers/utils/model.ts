@@ -8,7 +8,7 @@ import { OwnershipField } from '../../helpers';
  * Returns an array of EntityField.
  */
 export function getOwnershipChain(
-  model: Model
+  model: Model,
 ): (EntityField & OwnershipField)[] {
   const chain: (EntityField & OwnershipField)[] = [];
   let ownershipField = model.ownershipField;

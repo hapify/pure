@@ -46,7 +46,7 @@ export function isEntity(field: Field): field is EntityField {
  * Checks if a field is an ownership field
  */
 export function isOwnership<T extends EntityField>(
-  field: T
+  field: T,
 ): field is T & OwnershipField {
   return field.ownership;
 }

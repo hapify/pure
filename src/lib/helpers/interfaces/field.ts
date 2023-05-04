@@ -34,7 +34,7 @@ export interface OwnershipField {
 
 export interface FieldActionScope<
   A extends FieldAction,
-  S extends Scope | undefined
+  S extends Scope | undefined,
 > {
   actionsScopes: { [key in A]: S };
 }

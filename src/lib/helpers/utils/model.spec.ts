@@ -8,7 +8,7 @@ describe('getOwnershipChain', () => {
     const superOwner = new Model('SuperOwner');
     model.addField(new EntityOneToOneField('owner', owner).setOwnership(true));
     owner.addField(
-      new EntityOneToOneField('superOwner', superOwner).setOwnership(true)
+      new EntityOneToOneField('superOwner', superOwner).setOwnership(true),
     );
     expect(getOwnershipChain(model)).toEqual([
       model.fields[0],
@@ -20,7 +20,7 @@ describe('getOwnershipChain', () => {
     const owner = new Model('Owner');
     const superOwner = new Model('SuperOwner');
     owner.addField(
-      new EntityOneToOneField('superOwner', superOwner).setOwnership(true)
+      new EntityOneToOneField('superOwner', superOwner).setOwnership(true),
     );
     expect(getOwnershipChain(model)).toEqual([]);
   });
@@ -30,10 +30,10 @@ describe('getOwnershipChain', () => {
     const superOwner = new Model('SuperOwner');
     model.addField(new EntityOneToOneField('owner', owner).setOwnership(true));
     owner.addField(
-      new EntityOneToOneField('superOwner', superOwner).setOwnership(true)
+      new EntityOneToOneField('superOwner', superOwner).setOwnership(true),
     );
     superOwner.addField(
-      new EntityOneToOneField('user', model).setOwnership(true)
+      new EntityOneToOneField('user', model).setOwnership(true),
     );
     expect(getOwnershipChain(model)).toEqual([
       model.fields[0],

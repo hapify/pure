@@ -1,43 +1,52 @@
 {
   "name": "@hapify/schema",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A TypeScript library for unified data modeling across backend and frontend constraints.",
-  "license": "MIT",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "nx run-many --all --target=build",
-    "format": "nx format:write --all",
-    "lint": "nx workspace-lint && nx run-many --all --target=lint --parallel",
-    "lint:fix": "nx workspace-lint && nx run-many --all --target=lint --parallel --fix",
-    "test": " nx run-many --all --target=test"
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.{ts,js}'",
+    "format": "prettier --write '**/*.{ts,js,json}'",
+    "test": "jest"
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hapify/schema.git"
+  },
+  "keywords": [
+    "hapify",
+    "schema",
+    "templating"
+  ],
+  "author": "Edouard Demotes-Mainard <edouard@tractr.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hapify/schema/issues"
+  },
+  "homepage": "https://github.com/hapify/schema#readme",
   "dependencies": {
     "case": "^1.6.3",
     "pluralize": "^8.0.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@nrwl/eslint-plugin-nx": "15.8.1",
-    "@nrwl/jest": "15.8.1",
-    "@nrwl/js": "^15.8.1",
-    "@nrwl/linter": "15.8.1",
-    "@nrwl/nx-cloud": "latest",
-    "@types/jest": "^29.4.0",
-    "@types/node": "16.11.7",
+    "@types/jest": "^29.5.1",
     "@types/pluralize": "^0.0.29",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
-    "eslint": "~8.15.0",
+    "eslint": "^8.39.0",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.8",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4",
     "eslint-config-prettier": "8.1.0",
-    "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "nx": "15.8.1",
-    "prettier": "^2.6.2",
-    "ts-jest": "^29.0.5",
-    "ts-node": "10.9.1",
-    "typescript": "^4.9.5"
+    "ts-node": "10.9.1"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.spec.ts"
+    ]
+  }
 }

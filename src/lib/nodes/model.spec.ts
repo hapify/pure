@@ -178,7 +178,7 @@ describe('Model', () => {
       const model = new Model('Shop');
       const owner = new Model('User');
       model.addField(
-        new EntityOneToOneField('owner', owner).setOwnership(true)
+        new EntityOneToOneField('owner', owner).setOwnership(true),
       );
       expect(model.ownershipField).toBe(model.fields[0]);
     });
