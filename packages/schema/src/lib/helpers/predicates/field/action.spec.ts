@@ -1,7 +1,9 @@
 import { StringBasicField } from '../../../nodes';
 import {
+  isFieldAction,
   isFieldActionAuth,
   isFieldActionEmpty,
+  isFieldActionOwner,
   isFieldActionPublic,
   isFieldActionSystem,
 } from './action';
@@ -32,6 +34,20 @@ describe('isFieldActionAuth', () => {
   });
 });
 
+// owner
+describe('isFieldActionOwner', () => {
+  it('should return true if the action scope is owner', () => {
+    const field = new StringBasicField('name');
+    field.setActionScope('write', 'owner');
+    expect(isFieldActionOwner('write')(field)).toBe(true);
+  });
+  it('should return false if the action scope is not owner', () => {
+    const field = new StringBasicField('name');
+    field.setActionScope('write', 'system');
+    expect(isFieldActionOwner('write')(field)).toBe(false);
+  });
+});
+
 describe('isFieldActionSystem', () => {
   it('should return true if the action scope is system', () => {
     const field = new StringBasicField('name');
@@ -42,6 +58,22 @@ describe('isFieldActionSystem', () => {
     const field = new StringBasicField('name');
     field.setActionScope('write', 'auth');
     expect(isFieldActionSystem('write')(field)).toBe(false);
+  });
+});
+
+describe('isFieldAction', () => {
+  it('should return true if the action scope match', () => {
+    const scopes = ['public', 'auth', 'owner', 'system'] as const;
+    const actions = ['read', 'write'] as const;
+
+    for (const scope of scopes) {
+      for (const action of actions) {
+        const field = new StringBasicField('name');
+        field.setActionScope(action, scope);
+        const predicate = isFieldAction(action, scope);
+        expect(predicate(field)).toBe(true);
+      }
+    }
   });
 });
 

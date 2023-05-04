@@ -1,10 +1,11 @@
 /**
  * Possible values for actions' scope:
  *  - system (Denotes if the scope is restricted to the system, no user can access this)
+ *  - owner (Denotes if the scope is restricted to the owner of the resource)
  *  - auth (Denotes if the scope is restricted to authenticated users only)
  *  - public (Denotes if the scope is not restricted)
  */
-export type Scope = 'system' | 'auth' | 'public';
+export type Scope = 'system' | 'owner' | 'auth' | 'public';
 
 /** Define the scope for each available action in a model */
 export interface ModelActionsScopes {
