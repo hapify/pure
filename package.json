@@ -11,6 +11,8 @@
   },
   "private": true,
   "dependencies": {
+    "case": "^1.6.3",
+    "pluralize": "^8.0.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -21,6 +23,7 @@
     "@nrwl/nx-cloud": "latest",
     "@types/jest": "^29.4.0",
     "@types/node": "16.11.7",
+    "@types/pluralize": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "~8.15.0",
