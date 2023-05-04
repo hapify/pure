@@ -14,7 +14,7 @@ providing maximum flexibility and adaptability to different use cases.
 ## Features
 
 - Unified data modeling approach for backend and frontend constraints
-- Written in TypeScript
+- Written in TypeScript and fully typed
 - Simple and intuitive API for describing the data model
 - Can be used with third-party code generators like Eta
 
@@ -31,10 +31,84 @@ npm install @hapify/schema
 To use Hapify Schema, you first need to create a data model using the provided classes. Here's an example:
 
 ```typescript
-// Coming soon...
+const project = new Project('My project');
+const userModel = new Model('User')
+    .addField(
+        new StringBasicField('name')
+            .setSearchable(true)
+            .setMaxLength(64)
+            .setSortable(true)
+            .setNotes('The name of the user'),
+    )
+    .addField(
+        new StringEmailField('email')
+            .setSearchable(true)
+            .setSortable(true)
+            .setUnique(true)
+            .setNotes('The email of the user'),
+    )
+    .addField(new StringPasswordField('password').makeNotReadable())
+    .addField(
+        new NumberIntegerField('age')
+            .setSortable(true)
+            .setMin(0)
+            .setMax(120)
+            .setNullable(true),
+    )
+    .addField(
+        new BooleanField('validated')
+            .makeNotReadable()
+            .makeNotWritable()
+            .setSearchable(true)
+            .setSortable(true),
+    );
+
+const shop = new Model('Shop')
+    .addField(
+        new StringBasicField('name')
+            .setSearchable(true)
+            .setMaxLength(64)
+            .setSortable(true)
+            .setNotes('The name of the shop'),
+    )
+    .addField(
+        new StringTextField('description').setNotes('The description of the shop'),
+    )
+    .addField(
+        new EnumField('type')
+            .addValue('food')
+            .addValue('clothes')
+            .addValue('other')
+            .setDefaultValue('other'),
+    )
+    .addField(
+        new FileImageField('logo')
+            .setNullable(true)
+            .setMaxSize(1024 * 1024 * 5)
+            .setMinHeight(100)
+            .setMinWidth(100)
+            .setNotes('The logo of the shop'),
+    )
+    .addField(
+        new EntityManyToOneField('owner', userModel)
+            .setOwnership(true)
+            .setSearchable(true),
+    );
+
+project.addModel(userModel).addModel(shop);
 ```
 
 Once you have a data model, you can pass it as a context to a third-party code generator like [Eta](https://eta.js.org/) to generate the actual implementation code.
+
+It comes with a set of built-in helpers that let play with the data models and their fields in your templates:
+
+```typescript
+for (const model of project.models) {
+  const searchableStringOrNumberFields = model.fields.filter(
+    or(and(isString, isSearchable), isNumber),
+  );
+}
+```
 
 ## Origins
 
