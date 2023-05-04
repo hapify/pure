@@ -1,6 +1,7 @@
 {
-  "name": "hapify-schema",
+  "name": "@hapify/schema",
   "version": "0.0.0",
+  "description": "A TypeScript library for unified data modeling across backend and frontend constraints.",
   "license": "MIT",
   "scripts": {
     "build": "nx run-many --all --target=build",
