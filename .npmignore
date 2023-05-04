@@ -1,0 +1,17 @@
+# Ignore development-related files and folders
+node_modules
+src
+*.log
+*.lock
+
+# Ignore configuration files
+.eslintrc.js
+.prettierignore
+.prettierrc
+tsconfig.json
+jest.config.js
+
+# Other files to ignore
+.editorconfig
+.idea
+.gitignore
